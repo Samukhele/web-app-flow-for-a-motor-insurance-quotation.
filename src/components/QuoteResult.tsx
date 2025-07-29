@@ -15,26 +15,26 @@ const QuoteResult = ({ formData, prevStep }: QuoteResultProps) => {
   const calculatePremium = () => {
     let basePremium = 0;
     
-    // Base premium calculation
+    // Base premium calculation (adjusted for ZMK)
     if (formData.insuranceType === "Third Party") {
-      basePremium = 35000;
+      basePremium = 2500;
     } else if (formData.insuranceType === "Comprehensive") {
-      basePremium = 125000;
+      basePremium = 8500;
       
       // Add percentage based on vehicle value for comprehensive
-      const vehicleValue = parseInt(formData.vehicleValue.replace(/[₦,]/g, '')) || 0;
+      const vehicleValue = parseInt(formData.vehicleValue.replace(/[K,]/g, '')) || 0;
       if (vehicleValue > 0) {
         basePremium = Math.max(basePremium, vehicleValue * 0.05); // 5% of vehicle value
       }
     }
 
-    // Add-on costs
+    // Add-on costs (adjusted for ZMK)
     const addonCosts = {
-      roadside: 15000,
-      theft: 25000,
-      windscreen: 10000,
-      flood: 20000,
-      enhanced: 12000
+      roadside: 1000,
+      theft: 1750,
+      windscreen: 700,
+      flood: 1400,
+      enhanced: 850
     };
 
     let addonTotal = 0;
@@ -55,17 +55,17 @@ const QuoteResult = ({ formData, prevStep }: QuoteResultProps) => {
   const quoteNumber = `MIQ-${Date.now().toString().slice(-6)}`;
 
   const addonNames = {
-    roadside: { name: "Roadside Assistance", price: 15000 },
-    theft: { name: "Theft Protection", price: 25000 },
-    windscreen: { name: "Windscreen Protection", price: 10000 },
-    flood: { name: "Flood & Natural Disaster", price: 20000 },
-    enhanced: { name: "Enhanced Third Party", price: 12000 }
+    roadside: { name: "Roadside Assistance", price: 1000 },
+    theft: { name: "Theft Protection", price: 1750 },
+    windscreen: { name: "Windscreen Protection", price: 700 },
+    flood: { name: "Flood & Natural Disaster", price: 1400 },
+    enhanced: { name: "Enhanced Third Party", price: 850 }
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-NG', {
+    return new Intl.NumberFormat('en-ZM', {
       style: 'currency',
-      currency: 'NGN',
+      currency: 'ZMK',
       minimumFractionDigits: 0
     }).format(amount);
   };
@@ -205,11 +205,11 @@ const QuoteResult = ({ formData, prevStep }: QuoteResultProps) => {
             <div className="space-y-2">
               <div className="flex items-center text-sm text-blue-700">
                 <Phone className="w-4 h-4 mr-2" />
-                +234 (0) 1 234 5678
+                +260 (0) 21 123 4567
               </div>
               <div className="flex items-center text-sm text-blue-700">
                 <Mail className="w-4 h-4 mr-2" />
-                support@motorinsure.com
+                support@motorinsure.zm
               </div>
             </div>
           </Card>

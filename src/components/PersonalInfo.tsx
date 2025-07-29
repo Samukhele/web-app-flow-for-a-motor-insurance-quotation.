@@ -44,7 +44,7 @@ const PersonalInfo = ({ formData, updateFormData, nextStep }: PersonalInfoProps)
   };
 
   const locations = [
-    "Lagos", "Abuja", "Port Harcourt", "Kano", "Ibadan", "Kaduna", "Jos", "Benin City", "Warri", "Calabar"
+    "Lusaka", "Ndola", "Kitwe", "Kabwe", "Chingola", "Mufulira", "Livingstone", "Luanshya", "Kasama", "Chipata"
   ];
 
   return (
@@ -79,7 +79,7 @@ const PersonalInfo = ({ formData, updateFormData, nextStep }: PersonalInfoProps)
               </Label>
               <Input
                 id="phone"
-                placeholder="+234 801 234 5678"
+                placeholder="+260 97 123 4567"
                 value={formData.phone}
                 onChange={(e) => updateFormData({ phone: e.target.value })}
                 className={errors.phone ? "border-red-500" : ""}
