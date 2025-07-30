@@ -11,6 +11,45 @@ interface QuoteResultProps {
 }
 
 const QuoteResult = ({ formData, prevStep }: QuoteResultProps) => {
+  // Generate metadata when quote is generated
+  const generateQuoteMetadata = () => {
+    const timestamp = new Date().toISOString();
+    const quoteId = `MIQ-${Date.now().toString().slice(-6)}`;
+    
+    const metadata = {
+      quoteId,
+      timestamp,
+      customerInfo: {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        location: formData.location
+      },
+      vehicleInfo: {
+        make: formData.make,
+        model: formData.model,
+        year: formData.year,
+        engineCapacity: formData.engineCapacity,
+        vehicleType: formData.vehicleType,
+        vehicleValue: formData.vehicleValue
+      },
+      coverageInfo: {
+        insuranceType: formData.insuranceType,
+        addons: formData.addons
+      },
+      premiumCalculation: calculatePremium(),
+      currency: 'ZMK',
+      validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days from now
+    };
+
+    console.log('Quote Metadata Generated:', metadata);
+    
+    // Store in localStorage for persistence
+    localStorage.setItem(`quote_${quoteId}`, JSON.stringify(metadata));
+    
+    return metadata;
+  };
+
   // Calculate premium based on form data
   const calculatePremium = () => {
     let basePremium = 0;
@@ -68,6 +107,16 @@ const QuoteResult = ({ formData, prevStep }: QuoteResultProps) => {
       currency: 'ZMK',
       minimumFractionDigits: 0
     }).format(amount);
+  };
+
+  const handleProceedToBuy = () => {
+    const metadata = generateQuoteMetadata();
+    
+    // Show success message
+    alert(`Quote metadata generated successfully!\nQuote ID: ${metadata.quoteId}\nTotal Premium: ${formatCurrency(metadata.premiumCalculation.total)}`);
+    
+    // Here you would typically redirect to payment or next step
+    console.log('Proceeding to purchase with metadata:', metadata);
   };
 
   return (
@@ -179,7 +228,10 @@ const QuoteResult = ({ formData, prevStep }: QuoteResultProps) => {
           {/* Next Steps */}
           <Card className="p-6">
             <h4 className="font-semibold text-gray-900 mb-4">Ready to Purchase?</h4>
-            <Button className="w-full bg-green-600 hover:bg-green-700 text-white mb-4">
+            <Button 
+              onClick={handleProceedToBuy}
+              className="w-full bg-green-600 hover:bg-green-700 text-white mb-4"
+            >
               Proceed to Buy
             </Button>
             <div className="space-y-2 text-sm text-gray-600">
