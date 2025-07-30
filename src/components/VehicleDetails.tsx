@@ -153,13 +153,13 @@ const VehicleDetails = ({ formData, updateFormData, nextStep, prevStep }: Vehicl
             </Label>
             <Input
               id="vehicleValue"
-              placeholder="e.g., ₦5,000,000"
+              placeholder="e.g., ZMK 150,000"
               value={formData.vehicleValue}
               onChange={(e) => updateFormData({ vehicleValue: e.target.value })}
               className={errors.vehicleValue ? "border-red-500" : ""}
             />
             {errors.vehicleValue && <p className="text-red-500 text-sm mt-1">{errors.vehicleValue}</p>}
-            <p className="text-sm text-gray-500 mt-1">Enter the current market value of your vehicle</p>
+            <p className="text-sm text-gray-500 mt-1">Enter the current market value of your vehicle in Zambian Kwacha</p>
           </div>
         </div>
 

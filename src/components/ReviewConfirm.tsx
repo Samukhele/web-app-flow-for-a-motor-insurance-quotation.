@@ -21,6 +21,76 @@ const ReviewConfirm = ({ formData, nextStep, prevStep, goToStep }: ReviewConfirm
     enhanced: "Enhanced Third Party"
   };
 
+  // Generate metadata when Get My Quote is clicked
+  const generateQuoteMetadata = () => {
+    const timestamp = new Date().toISOString();
+    const quoteId = `MIQ-${Date.now().toString().slice(-6)}`;
+    
+    const metadata = {
+      quoteId,
+      timestamp,
+      customerInfo: {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        location: formData.location,
+        nationalId: formData.nationalId
+      },
+      vehicleInfo: {
+        make: formData.make,
+        model: formData.model,
+        year: formData.year,
+        engineCapacity: formData.engineCapacity,
+        vehicleType: formData.vehicleType,
+        vehicleValue: formData.vehicleValue
+      },
+      coverageInfo: {
+        insuranceType: formData.insuranceType,
+        addons: formData.addons
+      },
+      currency: 'ZMK',
+      validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days from now
+    };
+
+    console.log('Quote Metadata Generated:', metadata);
+    
+    // Store in localStorage for persistence
+    localStorage.setItem(`quote_${quoteId}`, JSON.stringify(metadata));
+    
+    // Display metadata to user
+    const metadataDisplay = `
+Quote Generated Successfully!
+
+Quote ID: ${metadata.quoteId}
+Generated: ${new Date(metadata.timestamp).toLocaleString()}
+Valid Until: ${new Date(metadata.validUntil).toLocaleDateString()}
+
+Customer: ${metadata.customerInfo.fullName}
+Email: ${metadata.customerInfo.email}
+Phone: ${metadata.customerInfo.phone}
+Location: ${metadata.customerInfo.location}
+
+Vehicle: ${metadata.vehicleInfo.make} ${metadata.vehicleInfo.model} (${metadata.vehicleInfo.year})
+Engine: ${metadata.vehicleInfo.engineCapacity}
+Type: ${metadata.vehicleInfo.vehicleType}
+Value: ${metadata.vehicleInfo.vehicleValue}
+
+Insurance Type: ${metadata.coverageInfo.insuranceType}
+Add-ons: ${metadata.coverageInfo.addons?.length ? metadata.coverageInfo.addons.join(', ') : 'None'}
+
+Currency: ${metadata.currency}
+    `;
+    
+    alert(metadataDisplay);
+    
+    return metadata;
+  };
+
+  const handleGetMyQuote = () => {
+    generateQuoteMetadata();
+    nextStep();
+  };
+
   return (
     <div className="max-w-3xl mx-auto">
       <Card className="p-8 shadow-lg">
@@ -166,7 +236,7 @@ const ReviewConfirm = ({ formData, nextStep, prevStep, goToStep }: ReviewConfirm
             Back
           </Button>
           <Button 
-            onClick={nextStep}
+            onClick={handleGetMyQuote}
             className="bg-blue-600 hover:bg-blue-700 text-white px-8"
           >
             Get My Quote

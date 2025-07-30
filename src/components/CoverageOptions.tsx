@@ -53,35 +53,35 @@ const CoverageOptions = ({ formData, updateFormData, nextStep, prevStep }: Cover
       name: "Roadside Assistance",
       description: "24/7 emergency roadside support, towing, and breakdown services",
       icon: Phone,
-      price: "₦15,000"
+      price: "ZMK 1,000"
     },
     {
       id: "theft",
       name: "Theft Protection",
       description: "Enhanced coverage against vehicle theft and hijacking",
       icon: Shield,
-      price: "₦25,000"
+      price: "ZMK 1,750"
     },
     {
       id: "windscreen",
       name: "Windscreen Protection",
       description: "Coverage for windscreen and window glass replacement",
       icon: Car,
-      price: "₦10,000"
+      price: "ZMK 700"
     },
     {
       id: "flood",
       name: "Flood & Natural Disaster",
       description: "Protection against flood, earthquake, and natural disasters",
       icon: AlertTriangle,
-      price: "₦20,000"
+      price: "ZMK 1,400"
     },
     {
       id: "enhanced",
       name: "Enhanced Third Party",
       description: "Increased third party liability limits and coverage",
       icon: Users,
-      price: "₦12,000"
+      price: "ZMK 850"
     }
   ];
 
@@ -117,7 +117,7 @@ const CoverageOptions = ({ formData, updateFormData, nextStep, prevStep }: Cover
                     <p className="text-gray-600 text-sm mb-3">
                       Covers damages to other people and their property. Required by law.
                     </p>
-                    <div className="text-blue-600 font-bold">Starting from ₦35,000</div>
+                    <div className="text-blue-600 font-bold">Starting from ZMK 2,500</div>
                   </div>
                 </div>
               </Card>
@@ -139,7 +139,7 @@ const CoverageOptions = ({ formData, updateFormData, nextStep, prevStep }: Cover
                     <p className="text-gray-600 text-sm mb-3">
                       Full protection for your vehicle and third-party damages.
                     </p>
-                    <div className="text-blue-600 font-bold">Starting from ₦125,000</div>
+                    <div className="text-blue-600 font-bold">Starting from ZMK 8,500</div>
                   </div>
                 </div>
               </Card>
